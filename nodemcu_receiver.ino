@@ -194,24 +194,20 @@ void handleArduinoData() {
 }
 
 bool parseData(String data) {
-  try {
-    // Handle different data types
-    if (data.startsWith("TEMP:")) {
-      return parseSensorData(data);
-    } else if (data.startsWith("HEARTBEAT:")) {
-      return parseHeartbeat(data);
-    } else if (data.startsWith("TEST:")) {
-      return parseTestData(data);
-    } else if (data.startsWith("CUSTOM:")) {
-      return parseCustomData(data);
-    }
-    
-    return false;
-    
-  } catch (...) {
-    Serial.println("✗ Exception during parsing");
-    return false;
+  // Handle different data types
+  if (data.startsWith("TEMP:")) {
+    return parseSensorData(data);
+  } else if (data.startsWith("HEARTBEAT:")) {
+    return parseHeartbeat(data);
+  } else if (data.startsWith("TEST:")) {
+    return parseTestData(data);
+  } else if (data.startsWith("CUSTOM:")) {
+    return parseCustomData(data);
   }
+  
+  // Return false if no matching data type found
+  Serial.println("✗ Unknown data format: " + data);
+  return false;
 }
 
 bool parseSensorData(String data) {
