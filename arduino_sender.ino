@@ -119,7 +119,7 @@ void loop() {
 // ===== DUMMY DATA GENERATION =====
 void generateDummyData() {
   // Generate dummy temperature (20-35°C dengan variasi realistis)
-  float tempVariation = random(-100, 101) / 100.0; // -1.0 to +1.0
+  float tempVariation = random(-200, 201) / 100.0; // -2.0 to +2.0
   temperature = baseTemperature + tempVariation;
   
   // Trend temperature untuk simulasi perubahan cuaca
@@ -139,10 +139,8 @@ void generateDummyData() {
   }
   
   // Pastikan nilai dalam range yang valid
-  if (temperature < -50) temperature = -50;
-  if (temperature > 150) temperature = 150;
-  if (lightLevel < 0) lightLevel = 0;
-  if (lightLevel > 1023) lightLevel = 1023;
+  temperature = constrain(temperature, 20.0, 35.0);  // Force ke range yang benar
+  lightLevel = constrain(lightLevel, 100, 900);       // Force ke range yang benar
   
   // Debug info
   Serial.print("Generated Dummy - Suhu: ");
