@@ -168,8 +168,8 @@ void handleArduinoData() {
       
       // Parse dan proses data
       if (parseData(receivedData)) {
-        // Kirim konfirmasi ke Arduino
-        arduinoSerial.println("OK");
+        // Kirim konfirmasi ke Arduino - pastikan ASCII only
+        arduinoSerial.print("OK\n");
         Serial.println(">>> SENT: OK");
         
         // Update connection status
@@ -182,8 +182,8 @@ void handleArduinoData() {
         printSensorData();
         
       } else {
-        // Error parsing
-        arduinoSerial.println("ERROR:PARSE_FAILED");
+        // Error parsing - kirim error message ASCII only
+        arduinoSerial.print("ERROR:PARSE_FAILED\n");
         Serial.println(">>> SENT: ERROR:PARSE_FAILED");
         systemStatus.errorCount++;
         systemStatus.lastError = "Parse failed for: " + receivedData;
